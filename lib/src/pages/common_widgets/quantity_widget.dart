@@ -14,7 +14,7 @@ class QuantityWidget extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: Colors.grey.shade300,
-            spreadRadius: 1,
+            spreadRadius: 2,
             blurRadius: 2,
           )
         ],
