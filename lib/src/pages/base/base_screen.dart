@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:greengrocher/src/pages/cart/card_tab.dart';
 import 'package:greengrocher/src/pages/home/home_tab.dart';
+import 'package:greengrocher/src/pages/orders/orders_tab.dart';
+import 'package:greengrocher/src/pages/profile/profile_tab.dart';
 
 class BaseScreen extends StatefulWidget {
   const BaseScreen({super.key});
@@ -19,10 +22,10 @@ class _BaseScreenState extends State<BaseScreen> {
         physics: const NeverScrollableScrollPhysics(),
         controller: pageController,
         children: [
-          HomeTab(),
-          Container(color: Colors.yellow,),
-          Container(color: Colors.blue,),
-          Container(color: Colors.purple,),
+          const HomeTab(),
+          const CardTab(),
+          const OrdersTab(),
+          const ProfileTab(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(

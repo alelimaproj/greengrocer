@@ -2,7 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:greengrocher/src/config/custom_colors.dart';
 
 class QuantityWidget extends StatelessWidget {
-  const QuantityWidget({super.key});
+
+  final int value;
+  final String suffixText;
+  final Function(int quantitity) result;
+  final bool isRemovable;
+
+  const QuantityWidget({super.key, required this.value, required this.suffixText, required this.result, this.isRemovable = false});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +20,7 @@ class QuantityWidget extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: Colors.grey.shade300,
-            spreadRadius: 2,
+            spreadRadius: 1,
             blurRadius: 2,
           )
         ],
@@ -22,19 +28,24 @@ class QuantityWidget extends StatelessWidget {
 
       // icones
       child: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
           // icone remover
           _QuantityButtom(
-            icon: Icons.remove,
-            color: Colors.grey,
-            onPressed: () {},
+            icon: !isRemovable || value > 1 ? Icons.remove : Icons.delete_forever,
+            color: !isRemovable || value > 1 ? Colors.grey : Colors.red,
+            onPressed: () {
+              if (value == 1 && !isRemovable) return;
+              int resultCount = value - 1;
+              result(resultCount);
+            },
           ),
-          const Padding(
+           Padding(
             padding: EdgeInsets.symmetric(
               horizontal: 6,
             ),
-            child: const Text(
-              "1Kg",
+            child: Text(
+              "$value$suffixText",
               style: TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.bold,
@@ -45,7 +56,10 @@ class QuantityWidget extends StatelessWidget {
           _QuantityButtom(
             icon: Icons.add,
             color: CustomColors.customSwatchColor,
-            onPressed: () {},
+            onPressed: () {
+              int resultCount = value + 1;
+              result(resultCount);
+            },
           ),
         ],
       ),
